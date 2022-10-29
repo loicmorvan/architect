@@ -7,7 +7,7 @@ public class Workspace
 
     public IEnumerable<Relationship> Relationships => relationships.AsEnumerable();
 
-    public Relationship AddRelationship(IModel from, IModel to)
+    public Relationship CreateRelationship(IModel from, IModel to)
     {
         if (!Contains(from) || !Contains(to))
             throw new ArgumentException("from or to is not in this workspace");
@@ -17,6 +17,19 @@ public class Workspace
         relationships.Add(relationship);
 
         return relationship;
+    }
+
+    public SoftwareSystem CreateSoftwareSystem()
+    {
+        var softwareSystem = new SoftwareSystem();
+        softwareSystems.Add(softwareSystem);
+
+        return softwareSystem;
+    }
+
+    public bool Remove(SoftwareSystem softwareSystem)
+    {
+        return softwareSystems.Remove(softwareSystem);
     }
 
     public IEnumerable<SoftwareSystem> SoftwareSystems => softwareSystems.AsEnumerable();
