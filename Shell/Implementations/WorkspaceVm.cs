@@ -1,4 +1,5 @@
 ﻿using System;
+using Shell.Interfaces;
 
 namespace Shell.Implementations;
 internal class WorkspaceVm : IWorkspaceVm

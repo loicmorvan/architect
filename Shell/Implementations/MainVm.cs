@@ -4,6 +4,7 @@ using ReactiveUI;
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Shell.Interfaces;
 
 namespace Shell.Implementations;
 internal class MainVm : ReactiveObject, IMainVm, IDisposable

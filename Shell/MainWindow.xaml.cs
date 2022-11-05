@@ -3,6 +3,7 @@ using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Shell.Implementations;
+using Shell.Interfaces;
 using System.Windows;
 
 namespace Shell;
