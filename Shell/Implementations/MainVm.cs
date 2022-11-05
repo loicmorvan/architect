@@ -12,7 +12,7 @@ internal class MainVm : ReactiveObject, IMainVm, IDisposable
     private readonly CompositeDisposable disposables = new();
     private readonly ObservableAsPropertyHelper<IWorkspaceVm?> currentWorkspace;
 
-    public MainVm(IMediator mediator)
+    public MainVm(IMediator mediator, IVmFactory factory)
     {
         NewWorkspace = ReactiveCommand
             .CreateFromTask(() => mediator.Send(new NewWorkspace()))
@@ -20,7 +20,7 @@ internal class MainVm : ReactiveObject, IMainVm, IDisposable
 
         currentWorkspace = NewWorkspace
             .Select(x => x.WorkspaceId)
-            .Select(x => new WorkspaceVm(x))
+            .Select(x => factory.CreateWorkspaceVm(x))
             .ToProperty(this, x => x.CurrentWorkspace)
             .DisposeWith(disposables);
     }

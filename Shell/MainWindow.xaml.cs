@@ -18,6 +18,7 @@ public partial class MainWindow : Window
 
         var services = new ServiceCollection();
         services.AddTransient<IMainVm, MainVm>();
+        services.AddTransient<IVmFactory, VmFactory>();
         services.AddMediatR(typeof(AssemblyMarker));
         services.AddInfrastructure();
 
