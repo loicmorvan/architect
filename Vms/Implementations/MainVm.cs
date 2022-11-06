@@ -7,7 +7,7 @@ using System.Reactive.Linq;
 using Shell.Interfaces;
 
 namespace Shell.Implementations;
-internal class MainVm : ReactiveObject, IMainVm, IDisposable
+public class MainVm : ReactiveObject, IMainVm, IDisposable
 {
     private readonly CompositeDisposable disposables = new();
     private readonly ObservableAsPropertyHelper<IWorkspaceVm?> currentWorkspace;

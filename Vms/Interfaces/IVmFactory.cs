@@ -1,6 +1,6 @@
 namespace Shell.Interfaces;
 
-internal interface IVmFactory
+public interface IVmFactory
 {
     IWorkspaceVm CreateWorkspaceVm(Guid id);
 }
