@@ -1,8 +1,7 @@
-﻿using System;
-using Shell.Interfaces;
+﻿using Shell.Interfaces;
 
 namespace Shell.Implementations;
-internal class WorkspaceVm : IWorkspaceVm
+public class WorkspaceVm : IWorkspaceVm
 {
     private readonly Guid id;
 

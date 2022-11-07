@@ -27,13 +27,3 @@ public partial class MainWindow : Window
         DataContext = serviceProvider.GetService<IMainVm>();
     }
 }
-
-internal static class ServiceCollectionEx
-{
-    public static IServiceCollection AddTypedFactory<TFactory>(this IServiceCollection services)
-    {
-        services.Add(new ServiceDescriptor(typeof(TFactory), typeof(VmFactory), ServiceLifetime.Singleton));
-
-        return services;
-    }
-}
