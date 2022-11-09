@@ -22,7 +22,7 @@ public class UnitTest1
 
 public class OtherComponent: IOtherService
 {
-    public OtherComponent(IServiceProvider serviceProvider, string value)
+    public OtherComponent(string value)
     {
         
     }
