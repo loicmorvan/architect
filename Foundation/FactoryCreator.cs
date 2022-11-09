@@ -13,17 +13,15 @@ public static class FactoryCreator
         var typeBuilder = moduleBuilder.DefineType("TypedFactory__IFactory");
         typeBuilder.AddInterfaceImplementation(typeof(IFactory));
 
-        var constructorBuilder = typeBuilder.DefineConstructor(MethodAttributes.Public, CallingConventions.Any, Type.EmptyTypes);
-        var constructorGenerator = constructorBuilder.GetILGenerator();
-        constructorGenerator.Emit(OpCodes.Ldarg_0);
-
-        var createMethodBuilder1 = typeBuilder.DefineMethod("Create", MethodAttributes.Public, typeof(IService), new[] { typeof(int) });
+        var createMethodBuilder1 = typeBuilder.DefineMethod("CreateService", MethodAttributes.Public | MethodAttributes.Virtual, typeof(IService), new[] { typeof(int) });
         var createMethodGenerator1 = createMethodBuilder1.GetILGenerator();
-        createMethodGenerator1.Emit(OpCodes.Newobj, typeof(Component));
+        createMethodGenerator1.Emit(OpCodes.Ldarg_1);
+        createMethodGenerator1.Emit(OpCodes.Newobj, typeof(Component).GetConstructor(BindingFlags.Instance | BindingFlags.Public, new[] { typeof(int) }) ?? throw new Exception("constructor not found on Component"));
         createMethodGenerator1.Emit(OpCodes.Ret);
 
-        var createMethodBuilder2 = typeBuilder.DefineMethod("Create", MethodAttributes.Public, typeof(IOtherService), new[] { typeof(float) });
+        var createMethodBuilder2 = typeBuilder.DefineMethod("CreateOtherService", MethodAttributes.Public | MethodAttributes.Virtual, typeof(IOtherService), new[] { typeof(float) });
         var createMethodGenerator2 = createMethodBuilder2.GetILGenerator();
+        createMethodGenerator2.Emit(OpCodes.Ldarg_1);
         createMethodGenerator2.Emit(OpCodes.Newobj, typeof(OtherComponent));
         createMethodGenerator2.Emit(OpCodes.Ret);
 

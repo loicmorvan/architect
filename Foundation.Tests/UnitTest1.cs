@@ -7,7 +7,7 @@ public class UnitTest1
     {
         var factory = FactoryCreator.Create();
 
-        Assert.NotNull(factory.Create(54));
-        Assert.NotNull(factory.Create(3f));
+        Assert.NotNull(factory.CreateService(54));
+        Assert.NotNull(factory.CreateOtherService(3f));
     }
 }
