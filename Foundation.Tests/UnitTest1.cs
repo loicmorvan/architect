@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Foundation.Tests;
 
 public class UnitTest1
@@ -5,8 +7,11 @@ public class UnitTest1
     [Fact]
     public void Test1()
     {
-        var factory = FactoryCreator.Create<IFactory>();
+        var services = new ServiceCollection();
+        services.AddTransient<IService, Component>();
 
-        Assert.NotNull(factory.CreateService(54));
+        var factory = FactoryCreator.Create<IFactory>(services);
+
+        Assert.NotNull(factory.CreateService(54, 54f));
     }
 }
