@@ -41,19 +41,51 @@ public static class FactoryCreator
 
     private static void ImplementCreateMethod(TypeBuilder typeBuilder, MethodInfo info, Type componentType, FieldBuilder serviceProviderField)
     {
+        System.Console.WriteLine("Creating method " + info.Name);
+
         var parameters = info.GetParameters().Select(x => x.ParameterType).ToArray();
-        var createMethodBuilder1 = typeBuilder.DefineMethod(info.Name, MethodAttributes.Public | MethodAttributes.Virtual, info.ReturnType, parameters);
-        var createMethodGenerator1 = createMethodBuilder1.GetILGenerator();
-        createMethodGenerator1.Emit(OpCodes.Ldarg_0);
-        createMethodGenerator1.Emit(OpCodes.Ldfld, serviceProviderField);
-        for (short i = 0; i < parameters.Length; ++i)
+        System.Console.WriteLine(parameters.Select(x => x.ToString()).Aggregate((x, y) => x + ", " + y));
+
+        var builder = typeBuilder.DefineMethod(info.Name, MethodAttributes.Public | MethodAttributes.Virtual, info.ReturnType, parameters);
+        var gen = builder.GetILGenerator();
+
+        var localArray = gen.DeclareLocal(typeof(object[]));
+
+        // create and store all parameters in an array
+        gen.EmitWriteLine("Creating arguments array");
+        gen.Emit(OpCodes.Ldc_I4, parameters.Length);
+        gen.Emit(OpCodes.Newarr, typeof(object));
+        gen.Emit(OpCodes.Stloc, localArray.LocalIndex); // stores the array instance
+        for (int i = 0; i < parameters.Length; ++i)
         {
-            createMethodGenerator1.Emit(OpCodes.Ldarg, i + 1);
+            gen.Emit(OpCodes.Ldloc, localArray.LocalIndex); // array instance
+            gen.Emit(OpCodes.Ldc_I4, i); // index in the array
+            gen.Emit(OpCodes.Ldarg, i + 1); // object to store
+            gen.Emit(OpCodes.Stelem, parameters[i]); // do store the object into the arry at the given index
         }
-        createMethodGenerator1.Emit(
-            OpCodes.Newobj,
-            componentType.GetConstructor(BindingFlags.Instance | BindingFlags.Public, parameters.Prepend(typeof(IServiceProvider)).ToArray())
-                ?? throw new Exception("constructor not found on component"));
-        createMethodGenerator1.Emit(OpCodes.Ret);
+
+        // push serviceProvider to the stack
+        gen.EmitWriteLine("push serviceProvider to the stack");
+        gen.Emit(OpCodes.Ldarg_0);
+        gen.Emit(OpCodes.Ldfld, serviceProviderField);
+
+        // push componentType to the stack
+        gen.EmitWriteLine("push componentType to the stack");
+        gen.Emit(OpCodes.Ldtoken, componentType);
+        gen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle") ?? throw new Exception("typeof not found?"));
+
+        // push array
+        gen.EmitWriteLine("push array");
+        gen.Emit(OpCodes.Ldloc, localArray.LocalIndex);
+
+        // call ActivatorUtilities.CreateInstance
+        gen.EmitWriteLine("call ActivatorUtilities.CreateInstance");
+        gen.Emit(
+            OpCodes.Call,
+            typeof(ActivatorUtilities).GetMethod("CreateInstance", new[] { typeof(IServiceProvider), typeof(Type), typeof(object[]) })
+                ?? throw new Exception("method ActivatorUtilities.CreateInstance not found"));
+
+        gen.EmitWriteLine("return");
+        gen.Emit(OpCodes.Ret);
     }
 }
