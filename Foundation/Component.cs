@@ -2,8 +2,11 @@ namespace Foundation;
 
 public class Component: IService
 {
-    public Component(int value, float otherValue)
+    private readonly int value;
+
+    public Component(IServiceProvider serviceProvider, int value, float otherValue)
     {
-        System.Console.WriteLine($"{value}, {otherValue}");
+        serviceProvider.ToString();
+        this.value = value;
     }
 }

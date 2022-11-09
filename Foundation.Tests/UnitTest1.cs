@@ -11,7 +11,9 @@ public class UnitTest1
         services.AddTransient<IService, Component>();
         services.AddTransient<IOtherService, OtherComponent>();
 
-        var factory = FactoryCreator.Create<IFactory>(services);
+        var provider = services.BuildServiceProvider();
+
+        var factory = FactoryCreator.Create<IFactory>(services, provider);
 
         Assert.NotNull(factory.CreateService(54, 54f));
         Assert.NotNull(factory.CreateOtherService("salut"));
@@ -20,7 +22,7 @@ public class UnitTest1
 
 public class OtherComponent: IOtherService
 {
-    public OtherComponent(string value)
+    public OtherComponent(IServiceProvider serviceProvider, string value)
     {
         
     }
