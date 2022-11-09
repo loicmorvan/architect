@@ -8,13 +8,14 @@ public static class FactoryCreator
 {
     public static TFactory Create<TFactory>(IServiceCollection services)
     {
+        var factoryType = typeof(TFactory);
         var assemblyName = "TypedFactory_Implementations";
         var assemblyBuilder = AssemblyBuilder.DefineDynamicAssembly(new AssemblyName(assemblyName), AssemblyBuilderAccess.Run);
         var moduleBuilder = assemblyBuilder.DefineDynamicModule(assemblyName);
-        var typeBuilder = moduleBuilder.DefineType($"TypedFactory__{typeof(TFactory).Name}__Implementation");
-        typeBuilder.AddInterfaceImplementation(typeof(TFactory));
+        var typeBuilder = moduleBuilder.DefineType($"TypedFactory__{factoryType.Name}__Implementation");
+        typeBuilder.AddInterfaceImplementation(factoryType);
 
-        foreach (var method in typeof(TFactory).GetMethods().Where(x => x.Name.StartsWith("Create")))
+        foreach (var method in factoryType.GetMethods().Where(x => x.Name.StartsWith("Create")))
         {
             ImplementCreateMethod(
                 typeBuilder,
