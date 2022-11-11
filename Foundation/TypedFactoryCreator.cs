@@ -4,9 +4,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Foundation;
 
-public static class FactoryCreator
+public static class TypedFactoryCreator
 {
     public static TFactory Create<TFactory>(IServiceCollection services, IServiceProvider serviceProvider)
+        where TFactory: notnull
     {
         var factoryType = typeof(TFactory);
         var assemblyName = "TypedFactory_Implementations";
@@ -27,10 +28,27 @@ public static class FactoryCreator
 
         foreach (var method in factoryType.GetMethods().Where(x => x.Name.StartsWith("Create")))
         {
+            var serviceDescriptor = services.FirstOrDefault(x => x.ServiceType == method.ReturnType);
+            if (serviceDescriptor is null)
+            {
+                throw new Exception($"An implementation was not found for the service {method.ReturnType}");
+            }
+
+            if (serviceDescriptor.Lifetime is not ServiceLifetime.Transient)
+            {
+                throw new Exception($"The lifetime of service {method.ReturnType} is not transient.");
+            }
+
+            var componentType = serviceDescriptor.ImplementationType;
+            if (componentType is null)
+            {
+                throw new Exception($"The service {method.ReflectedType} does not have an implementation type.");
+            }
+
             ImplementCreateMethod(
                 typeBuilder,
                 method,
-                services.First(x => x.ServiceType == method.ReturnType).ImplementationType ?? throw new Exception(),
+                componentType,
                 serviceProviderField);
         }
 

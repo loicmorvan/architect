@@ -1,4 +1,5 @@
 ﻿using Application;
+using Foundation;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;

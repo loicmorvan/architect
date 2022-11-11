@@ -1,15 +1,15 @@
 using Microsoft.Extensions.DependencyInjection;
-using Shell.Implementations;
 
-namespace Shell;
+namespace Foundation;
 
 public static class ServiceCollectionEx
 {
     public static IServiceCollection AddTypedFactory<TFactory>(this IServiceCollection services)
+        where TFactory: notnull
     {
         services.Add(new ServiceDescriptor(
-            typeof(TypedFactory<TFactory>),
-            (provider) => new TypedFactory<TFactory>(services, provider),
+            typeof(TFactory),
+            (serviceProvider) => TypedFactoryCreator.Create<TFactory>(services, serviceProvider),
             ServiceLifetime.Singleton));
 
         return services;
