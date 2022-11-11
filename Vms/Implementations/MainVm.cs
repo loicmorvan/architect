@@ -1,7 +1,6 @@
 ﻿using Application;
 using MediatR;
 using ReactiveUI;
-using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Shell.Interfaces;
@@ -20,13 +19,12 @@ public class MainVm : ReactiveObject, IMainVm, IDisposable
 
         currentWorkspace = NewWorkspace
             .Select(x => x.WorkspaceId)
-            .Select(x => factory.CreateWorkspaceVm(x))
+            .Select(factory.CreateWorkspaceVm)
             .ToProperty(this, x => x.CurrentWorkspace)
             .DisposeWith(disposables);
     }
 
     public ReactiveCommand<System.Reactive.Unit, WorkspaceCreated> NewWorkspace { get; }
-
 
     public IWorkspaceVm? CurrentWorkspace => currentWorkspace.Value;
 
