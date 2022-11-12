@@ -1,4 +1,4 @@
-﻿namespace Shell.Interfaces;
+﻿namespace Vms.Interfaces;
 public interface IWorkspaceVm
 {
 }

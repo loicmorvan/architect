@@ -3,8 +3,8 @@ using Foundation;
 using Infrastructure;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Shell.Implementations;
-using Shell.Interfaces;
+using Vms.Implementations;
+using Vms.Interfaces;
 
 namespace Vms;
 

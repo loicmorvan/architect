@@ -1,6 +1,6 @@
-﻿using Shell.Interfaces;
+﻿using Vms.Interfaces;
 
-namespace Shell.Implementations;
+namespace Vms.Implementations;
 public class WorkspaceVm : IWorkspaceVm
 {
     private readonly Guid id;

@@ -7,9 +7,10 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Executable/Executable.csproj",
+                "${workspaceFolder}/Presentation/Presentation.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "--framework net6.0-maccatalyst"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -19,9 +20,10 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/Executable/Executable.csproj",
+                "${workspaceFolder}/Presentation/Presentation.csproj",
                 "/property:GenerateFullPaths=true",
-                "/consoleloggerparameters:NoSummary"
+                "/consoleloggerparameters:NoSummary",
+                "--framework net6.0-maccatalyst"
             ],
             "problemMatcher": "$msCompile"
         },
@@ -33,7 +35,8 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/Executable/Executable.csproj"
+                "${workspaceFolder}/Presentation/Presentation.csproj",
+                "--framework net6.0-maccatalyst"
             ],
             "problemMatcher": "$msCompile"
         }

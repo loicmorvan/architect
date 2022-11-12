@@ -2,7 +2,7 @@
 using ReactiveUI;
 using System.Reactive;
 
-namespace Shell.Interfaces;
+namespace Vms.Interfaces;
 public interface IMainVm
 {
     ReactiveCommand<Unit, WorkspaceCreated> NewWorkspace { get; }

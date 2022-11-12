@@ -3,9 +3,9 @@ using MediatR;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using Shell.Interfaces;
+using Vms.Interfaces;
 
-namespace Shell.Implementations;
+namespace Vms.Implementations;
 public class MainVm : ReactiveObject, IMainVm, IDisposable
 {
     private readonly CompositeDisposable disposables = new();

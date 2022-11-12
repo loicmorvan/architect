@@ -10,12 +10,12 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Executable/bin/Debug/net6.0/Executable.dll",
+            "program": "${workspaceFolder}/Presentation/bin/Debug/net6.0-maccatalyst/maccatalyst-x64/Presentation.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/Executable",
+            "cwd": "${workspaceFolder}/Presentation",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "internalConsole",
-            "stopAtEntry": false
+            "stopAtEntry": false,
         },
         {
             "name": ".NET Core Attach",

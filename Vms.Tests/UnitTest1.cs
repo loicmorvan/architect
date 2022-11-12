@@ -1,6 +1,6 @@
 using System.Reactive.Linq;
 using Microsoft.Extensions.DependencyInjection;
-using Shell.Interfaces;
+using Vms.Interfaces;
 
 namespace Vms.Tests;
 
