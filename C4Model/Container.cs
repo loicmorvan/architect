@@ -2,7 +2,7 @@
 
 public class Container : IModel
 {
-    private List<Component> components = new();
+    private readonly List<Component> components = new();
 
     public IEnumerable<Component> Components => components.AsEnumerable();
 

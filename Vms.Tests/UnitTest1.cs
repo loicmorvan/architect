@@ -14,7 +14,7 @@ public class UnitTest1
 
         var provider = services.BuildServiceProvider();
 
-        var mainVm = provider.GetRequiredService<IMainVm>();
+        var mainVm = provider.GetRequiredService<IMain>();
         Assert.NotNull(mainVm);
         Assert.Null(mainVm.CurrentWorkspace);
         await mainVm.NewWorkspace.Execute();

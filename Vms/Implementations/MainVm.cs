@@ -1,32 +1,34 @@
-﻿using Application;
-using MediatR;
+﻿using C4Model;
 using ReactiveUI;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using Vms.Interfaces;
 
 namespace Vms.Implementations;
-public class MainVm : ReactiveObject, IMainVm, IDisposable
+
+public sealed class MainVm : ReactiveObject, IMain, IDisposable
 {
     private readonly CompositeDisposable disposables = new();
-    private readonly ObservableAsPropertyHelper<IWorkspaceVm?> currentWorkspace;
+    private readonly ObservableAsPropertyHelper<IWorkspace?> currentWorkspace;
 
-    public MainVm(IMediator mediator, IVmFactory factory)
+    public MainVm(IFactory factory)
     {
         NewWorkspace = ReactiveCommand
-            .CreateFromTask(() => mediator.Send(new NewWorkspace()))
+            .Create(() =>
+            {
+                var result = new Workspace();
+                return factory.CreateWorkspace(result);
+            })
             .DisposeWith(disposables);
 
         currentWorkspace = NewWorkspace
-            .Select(x => x.WorkspaceId)
-            .Select(factory.CreateWorkspaceVm)
             .ToProperty(this, x => x.CurrentWorkspace)
             .DisposeWith(disposables);
     }
 
-    public ReactiveCommand<System.Reactive.Unit, WorkspaceCreated> NewWorkspace { get; }
+    public ReactiveCommand<System.Reactive.Unit, IWorkspace> NewWorkspace { get; }
 
-    public IWorkspaceVm? CurrentWorkspace => currentWorkspace.Value;
+    public IWorkspace? CurrentWorkspace => currentWorkspace.Value;
 
     public void Dispose()
     {

@@ -1,4 +1,5 @@
 ﻿namespace C4Model;
+
 public interface IWorkspaceRepository
 {
     Task<Guid> CreateAsync(CancellationToken token = default);
