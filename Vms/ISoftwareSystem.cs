@@ -2,7 +2,7 @@
 using System.Reactive;
 using ReactiveUI;
 
-namespace Vms.Interfaces;
+namespace Vms;
 
 public interface ISoftwareSystem
 {

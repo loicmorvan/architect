@@ -4,7 +4,6 @@ using System.Reactive.Linq;
 using C4Model;
 using DynamicData;
 using ReactiveUI;
-using Vms.Interfaces;
 
 namespace Vms.Implementations;
 

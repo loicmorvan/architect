@@ -1,7 +1,5 @@
-﻿using Vms.Interfaces;
+﻿namespace Vms.Implementations;
 
-namespace Vms.Implementations;
-
-internal class ComponentVm:IComponent
+internal class ComponentVm: IComponent
 {
 }

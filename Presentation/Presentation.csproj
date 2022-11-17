@@ -52,4 +52,11 @@
 	    <SubType></SubType>
 	  </MauiXaml>
 	</ItemGroup>
+	<ItemGroup>
+	  <None Remove="ReactiveUI.WPF" />
+	  <None Remove="ReactiveUI.Maui" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="ReactiveUI.Maui" Version="18.3.1" />
+	</ItemGroup>
 </Project>

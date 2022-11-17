@@ -1,6 +1,4 @@
-﻿using Vms.Interfaces;
-
-namespace Vms.Implementations;
+﻿namespace Vms.Implementations;
 
 internal class ContainerVm: IContainer
 {

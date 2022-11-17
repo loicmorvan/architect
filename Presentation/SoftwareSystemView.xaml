@@ -2,14 +2,18 @@
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Presentation.SoftwareSystemView"
-             xmlns:vm="clr-namespace:Vms.Interfaces;assembly=Vms"
+             xmlns:vm="clr-namespace:Vms;assembly=Vms"
              x:DataType="vm:ISoftwareSystem">
-    <VerticalStackLayout>
-        <Label Text="{Binding Title}"
+    <Frame>
+        <VerticalStackLayout>
+            <Label
+               Text="{Binding Title}"
                VerticalOptions="Center"
                HorizontalOptions="Center" />
-        <Label Text="{Binding Description}"
+            <Label
+               Text="{Binding Description}"
                VerticalOptions="Center"
                HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
 </ContentView>

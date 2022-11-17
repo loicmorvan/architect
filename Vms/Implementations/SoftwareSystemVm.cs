@@ -4,7 +4,6 @@ using System.Reactive.Disposables;
 using C4Model;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
-using Vms.Interfaces;
 
 namespace Vms.Implementations;
 

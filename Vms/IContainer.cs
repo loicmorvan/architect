@@ -1,4 +1,4 @@
-﻿namespace Vms.Interfaces;
+﻿namespace Vms;
 
 public interface IContainer
 {

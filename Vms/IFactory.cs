@@ -1,6 +1,6 @@
 using C4Model;
 
-namespace Vms.Interfaces;
+namespace Vms;
 
 public interface IFactory
 {
