@@ -22,5 +22,5 @@ public class SoftwareSystem : IModel
 
     public string Name { get; set; } = "Unnamed";
 
-    public string Description { get; set; } = string.Empty;
+    public string Description { get; set; } = "No description so far.";
 }
