@@ -1,4 +1,4 @@
-using Foundation;
+using Hemel.DependencyInjection.TypedFactory;
 using Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Vms.Implementations;
